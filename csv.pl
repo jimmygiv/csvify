@@ -1,6 +1,5 @@
 #!/usr/bin/env perl
-#Import modules
-
+#Version 0.1 
 #Constants
 my @content = <STDIN>;
 my $usage = '-d delimiter';
@@ -22,8 +21,12 @@ sub main {
   my ($delim, @content) = @_;
   foreach ( @content ) {
     my $line = $_;
+    my @new = ();
     my @split = split($delim, $line);
-    my $new = join(",", @split);
-    print "$new\n"
+    for (my $i;$i<scalar(@split);$i++) { 
+      if ( index(@split[$i], ",")>=0 ) { push(@new, "\"".@split[$i]."\""); }
+      else { push(@new, @split[$i]) }
+    }
+    printf join(",", @new) . "\n"; 
   }
 }
